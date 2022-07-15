@@ -11,11 +11,14 @@ search.addEventListener(
             fetch(`https://swapi.dev/api/people/?search=${value}`)
             .then(res => res.json())
                 .then(data => {
-                    const tips = document.createElement('div');
+                    for (let i = 0; i < data.results.length; i++); {
+                        const tips = document.createElement('div');
                     
-                    tips.innerHTML = `<span>${value}</span>`;
-
-                    event.target.appendChild(tips)
+                        tips.innerHTML = `<span>${value}</span>`;
+    
+                        event.target.appendChild(tips);
+                        console.log(data);
+                    }
             })
         }
     }
