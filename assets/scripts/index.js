@@ -1,7 +1,9 @@
 //1. Jeżeli jest wpisane <4 - nie wyszukuje [DONE]
 //2. Przygotowanie struktury HTML do podpowiedzi
+//3. Sprawdź czy istnieje .tips (jeśli TAK, usuwamy .tips)
 
 const search = document.getElementById('search1');
+const searchForm = document.getElementById('searchForm');
 
 search.addEventListener(
     'keyup',
@@ -11,15 +13,32 @@ search.addEventListener(
             fetch(`https://swapi.dev/api/people/?search=${value}`)
             .then(res => res.json())
                 .then(data => {
-                    for (let i = 0; i < data.results.length; i++); {
-                        const tips = document.createElement('div');
-                    
-                        tips.innerHTML = `<span>${value}</span>`;
+                    const tipsDiv = document.querySelector('.tips')
+                    if (tipsDiv)
+                        tipsDiv.remove();
+
+                    const tips = document.createElement('div');
+                    tips.classList.add('tips', 'd-flex')
+                    for (let i = 0; i < data.results.length; i++) {
+                        const tip = document.createElement('a');
+                        tip.href = "#";
+                        tip.innerHTML = data.results[i].name;
+                        
+                        tips.appendChild(tip)
     
-                        event.target.appendChild(tips);
                         console.log(data);
-                    }
+                    };
+                    
+                    event.target.closest('form').appendChild(tips);
             })
         }
+    }
+)
+
+searchForm.addEventListener(
+    'submit',
+    (event) => {
+        event.preventDefault();
+        
     }
 )
