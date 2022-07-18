@@ -25,7 +25,13 @@ search.addEventListener(
                         tip.innerHTML = data.results[i].name;
                         
                         tips.appendChild(tip)
-    
+                        
+                        if (typeof tips != "undefined") {
+                            alert("Yep, it exists")
+                        }
+                            else {
+                                tips.remove();
+                        };
                         console.log(data);
                     };
                     
@@ -39,6 +45,18 @@ searchForm.addEventListener(
     'submit',
     (event) => {
         event.preventDefault();
+            const value = event.target.value;
+            if (value.length >= 4) {
+                fetch(`https://swapi.dev/api/people/?search=${value}`)
+                .then(res => res.json())
+                    .then(data => {
+                        
+                        const sForm = document.createElement('table');
+                        sForm.classList.add('table-light', )
+                        for (let i = 0; i < data.results.length; )
+                        
+                    })
+            }
         
     }
 )
