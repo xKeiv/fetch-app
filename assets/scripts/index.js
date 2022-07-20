@@ -1,10 +1,10 @@
 //1. Przygotowanie struktury HTML do podpowiedzi [DONE]
 //2. Loaderek [X]
 //3. Jak zoptymalizować [DONE]
-//4. async wait - przeczytać [DONE/X]
+//4. async wait - przeczytać [DONE]
 //5. Poczytaj jak zdobywać dane z linku [X]
-//6. Do punktu 5. zrób dodatkową stronę.
-//7. Jesli na dodatkowej stronie będzie w linku Luke+Skywalker, pobierz dane z ?search=Luke+Skywalker
+//6. Do punktu 5. zrób dodatkową stronę. [DONE]
+//7. Jesli na dodatkowej stronie będzie w linku Luke+Skywalker, pobierz dane z ?search=Luke+Skywalker [X]
 
 const search = document.getElementById('search1');
 const searchForm = document.getElementById('searchForm');
@@ -20,6 +20,7 @@ search.addEventListener(
             const timer = setTimeout(() => {
                 if (!wait) {
                     wait = true;
+                    //Tu Loaderek
                     fetch(`https://swapi.dev/api/people/?search=${value}`)
                         .then(res => res.json())
                         .then(data => {
@@ -41,6 +42,7 @@ search.addEventListener(
                             
                             event.target.closest('form').appendChild(tips);
                             wait = false;
+                    //Tu sie konczy loaderek
                         })
                 }
             }, 1000)
