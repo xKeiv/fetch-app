@@ -32,7 +32,7 @@ search.addEventListener(
                             tips.classList.add('tips', 'bg-light', 'd-flex', "flex-column", "border-top-0", "border-primary", "rounded-bottom")
                             for (let i = 0; i < data.results.length; i++) {
                                 const tip = document.createElement('a');
-                                tip.href = "#";
+                                tip.href = `character.html?search=${data.results[i].name.replaceAll(' ','+')}`;
                                 tip.innerHTML = data.results[i].name;
                                 
                                 tips.appendChild(tip)
@@ -81,7 +81,7 @@ searchForm.addEventListener(
 
                         tBody.innerHTML += `<tr>
                         <th scope="row">${i+1}</th>
-                        <td>${data.results[i].name}</td>
+                        <td><a href="character.html?search=${data.results[i].name.replaceAll(' ','+')}">${data.results[i].name}</a></td>
                         <td>${data.results[i].height}</td>
                         <td>${data.results[i].mass}</td>
                     </tr>`
