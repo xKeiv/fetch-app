@@ -1,10 +1,5 @@
-// const url = new URL('http://127.0.0.1:5500/character.html')
-
-// let param = new URLSearchParams(url.search);
-
-// console.log(param)
-
-const searchParam = document.getElementById('searchParam')
+const searchParam = document.getElementById('param')
+const tableM = document.querySelector('.tableM')
 
 const url = new URL (window.location.href)
 
@@ -47,6 +42,7 @@ fetch(`https://swapi.dev/api/people/?search=${link.get('search')}`)
                         <td>${data.results[i].mass}</td>
                     </tr>`
                     };
-                        sForm.appendChild(tBody);
-                        tableM.appendChild(sForm);
+
+                    sForm.appendChild(tBody);
+                    tableM.appendChild(sForm);
                     })
