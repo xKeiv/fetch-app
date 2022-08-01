@@ -5,22 +5,30 @@ const url = new URL (window.location.href)
 
 const link = new URLSearchParams(url.search);
 
-link.get('search');
+const links = {
+    people: 'people',
+    films: 'films',
+    starships: 'starships',
+    vehicles: 'vehicles',
+    species: 'species',
+    planets: 'planets',
+}
 
 console.log(url.search);
 
 searchParam.innerHTML = link.get('search')
 
-fetch(`https://swapi.dev/api/people/?search=${link.get('search')}`)
+// fetch(`https://swapi.dev/api/people/?search=${link.get('search')}`)
+fetch(`https://swapi.dev/api/${links.people}/${link.get('id')}/`)
             .then(res => res.json())
                 .then(data => {
-                        
+
                     const searchDiv = tableM.querySelector('table')
                     if (searchDiv)
                         searchDiv.remove();
 
                     const sForm = document.createElement('table');
-                    sForm.classList.add('table','table-responsive','table-light');
+                    sForm.classList.add('table-responsive','table-light');
                     console.log(data, data.results.length);
                     
                     const tHead = document.createElement('thead')
@@ -52,9 +60,13 @@ fetch(`https://swapi.dev/api/people/?search=${link.get('search')}`)
                         <td>${data.results[i].films.length ? data.results[i].films.join():'None'}</td>
                         <td>${data.results[i].vehicles.length ? data.results[i].vehicles.join():'None'}</td>
                         <td>${data.results[i].starships.length ? data.results[i].starships.join():'None'}</td>
-                    </tr>`})
+                    </tr>`
+                        }
+                    )
+
                     };
 
                     sForm.appendChild(tBody);
                     tableM.appendChild(sForm);
+                    
                     })
