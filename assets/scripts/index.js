@@ -32,7 +32,13 @@ search.addEventListener(
                             tips.classList.add('tips', 'bg-light', 'd-flex', "flex-column", "border-top-0", "border-primary", "rounded-bottom")
                             for (let i = 0; i < data.results.length; i++) {
                                 const tip = document.createElement('a');
-                                tip.href = `character.html?id=${data.results[i].url}`;
+
+                                const url = data.results[i].url ;
+                                const slash = url.lastIndexOf("/");
+                                const slash2 = url.lastIndexOf("/", slash - 1) + 1;
+                                const id = url.slice(slash2, slash)
+
+                                tip.href = `character.html?id=${id}`;
                                 tip.innerHTML = data.results[i].name;
                                 
                                 tips.appendChild(tip)
@@ -78,10 +84,14 @@ searchForm.addEventListener(
                     
 
                     for (let i = 0; i < data.results.length; i++) {
+                        const url = data.results[i].url ;
+                        const slash = url.lastIndexOf("/");
+                        const slash2 = url.lastIndexOf("/", slash - 1) + 1;
+                        const id = url.slice(slash2, slash)
 
                         tBody.innerHTML += `<tr>
                         <th scope="row">${i+1}</th>
-                        <td><a href="character.html?id=${data.results[i].name.replaceAll(' ','+')}">${data.results[i].name}</a></td>
+                        <td><a href="character.html?id=${id}">${data.results[i].name}</a></td>
                         <td>${data.results[i].height}</td>
                         <td>${data.results[i].mass}</td>
                     </tr>`

@@ -29,7 +29,7 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get('id')}/`)
 
                     const sForm = document.createElement('table');
                     sForm.classList.add('table-responsive','table-light');
-                    console.log(data, data.results.length);
+                    
                     
                     const tHead = document.createElement('thead')
                             
@@ -41,30 +41,28 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get('id')}/`)
                     
                     
 
-                    for (let i = 0; i < data.results.length; i++) {
-                            fetch(data.results[i].homeworld)
-                                .then(homeworld => homeworld.json())
-                                .then(homeworld => {
-                        tBody.innerHTML += `<tr>
-                        <th scope="col">${i+1}</th>
-                        <td><a href="character.html?search=${data.results[i].name.replaceAll(' ','+')}">${data.results[i].name}</a></td>
-                        <td>${data.results[i].height}</td>
-                        <td>${data.results[i].mass}</td>
-                        <td>${data.results[i].hair_color}</td>
-                        <td>${data.results[i].skin_color}</td>
-                        <td>${data.results[i].eye_color}</td>
-                        <td>${data.results[i].birth_year}</td>
-                        <td>${data.results[i].gender}</td>
-                        <td><a href="${data.results[i].homeworld}">${homeworld.name}</td>
-                        <td>${data.results[i].species.length ? data.results[i].species.join():'None'}</td>
-                        <td>${data.results[i].films.length ? data.results[i].films.join():'None'}</td>
-                        <td>${data.results[i].vehicles.length ? data.results[i].vehicles.join():'None'}</td>
-                        <td>${data.results[i].starships.length ? data.results[i].starships.join():'None'}</td>
-                    </tr>`
+                    
+                    fetch(data.homeworld)
+                        .then(homeworld => homeworld.json())
+                        .then(homeworld => {
+                            tBody.innerHTML += `<tr>
+                            <th scope="col">1</th>
+                            <td><a href="character.html?search=${data.name.replaceAll(' ','+')}">${data.name}</a></td>
+                            <td>${data.height}</td>
+                            <td>${data.mass}</td>
+                            <td>${data.hair_color}</td>
+                            <td>${data.skin_color}</td>
+                            <td>${data.eye_color}</td>
+                            <td>${data.birth_year}</td>
+                            <td>${data.gender}</td>
+                            <td><a href="${data.homeworld}">${homeworld.name}</td>
+                            <td>${data.species.length ? data.species.join():'None'}</td>
+                            <td>${data.films.length ? data.films.join():'None'}</td>
+                            <td>${data.vehicles.length ? data.vehicles.join():'None'}</td>
+                            <td>${data.starships.length ? data.starships.join():'None'}</td>
+                            </tr>`
                         }
                     )
-
-                    };
 
                     sForm.appendChild(tBody);
                     tableM.appendChild(sForm);
