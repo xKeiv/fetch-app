@@ -54,13 +54,15 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get('id')}/`)
                             <td>${data.skin_color}</td>
                             <td>${data.eye_color}</td>
                             <td>${data.birth_year}</td>
-                            <td>${data.gender}</td>
+                            <td>${data.gender == 'male' ? '<img src="./assets/img/male.png" alt="male" style="height: 3rem" />': '<img src="./assets/img/female.png" alt="female" style="height: 3rem" />'}</td>
                             <td><a href="${data.homeworld}">${homeworld.name}</td>
                             <td>${data.species.length ? data.species.join():'None'}</td>
                             <td>${data.films.length ? data.films.join():'None'}</td>
                             <td>${data.vehicles.length ? data.vehicles.join():'None'}</td>
                             <td>${data.starships.length ? data.starships.join():'None'}</td>
                             </tr>`
+
+
                         }
                     )
 
