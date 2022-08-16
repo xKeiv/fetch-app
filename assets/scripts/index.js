@@ -20,7 +20,12 @@ search.addEventListener(
             const timer = setTimeout(() => {
                 if (!wait) {
                     wait = true;
-                    //Tu Loaderek
+
+                    const preloader = document.querySelector('.spinner-grow');
+                    preloader.classList.add('d-flex', 'justify-content-center');
+                    preloader.classList.remove('d-none')
+                    console.log(preloader);
+
                     fetch(`https://swapi.dev/api/people/?search=${value}`)
                         .then(res => res.json())
                         .then(data => {
@@ -48,7 +53,9 @@ search.addEventListener(
                             
                             event.target.closest('form').appendChild(tips);
                             wait = false;
-                    //Tu sie konczy loaderek
+
+                            preloader.classList.remove('d-flex', 'justify-content-center',);
+                            preloader.classList.add('d-none');
                         })
                 }
             }, 1000)
