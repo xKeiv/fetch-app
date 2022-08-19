@@ -1,6 +1,7 @@
 const searchParam = document.getElementById("param");
 const tableM = document.querySelector(".tableM");
 
+
 const url = new URL(window.location.href);
 
 const link = new URLSearchParams(url.search);
@@ -61,22 +62,102 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
                             <td>${
                               data.species.length ? data.species.join() : "None"
                             }</td>
-                            <td>${
-                              data.films.length ? data.films.join() : "None"
-                            }</td>
-                            <td>${
-                              data.vehicles.length
-                                ? data.vehicles.join()
-                                : "None"
-                            }</td>
-                            <td>${
-                              data.starships.length
-                                ? data.starships.join()
-                                : "None"
-                            }</td>
+                            `
+                            if (data.films.length){
+                              const filmButton = document.createElement('a');
+                              filmButton.href = '#show'
+                              filmButton.id = 'filmShow'
+                              filmButton.innerHTML = 'Show';
+                              filmButton.classList.add('btn', 'btn-dark')
+                              filmButton.dataset.films = '';
+
+                              for (let i = 0; i < data.films.length; i++) {
+                                const url = data.films[i]
+                                const slash = url.lastIndexOf("/");
+                                const slash2 = url.lastIndexOf("/", slash - 1) + 1;
+                                const id = url.slice(slash2, slash)
+
+                                filmButton.dataset.films += `${id},`
+                              }
+
+                              tBody.innerHTML += `<td>${filmButton.outerHTML}</td>`;
+                            } else {
+                              tBody.innerHTML += "<td>None</td>"
+                            }`
+                            
+                            <td>`
+                            if (data.vehicles.length){
+                              const vehButton = document.createElement('a');
+                              vehButton.href = '#show'
+                              vehButton.id = 'vehShow'
+                              vehButton.innerHTML = 'Show';
+                              vehButton.classList.add('btn', 'btn-dark')
+                              vehButton.dataset.vehicles = '';
+
+                              for (let i = 0; i < data.vehicles.length; i++) {
+                                const url = data.vehicles[i]
+                                const slash = url.lastIndexOf("/");
+                                const slash2 = url.lastIndexOf("/", slash - 1) + 1;
+                                const id = url.slice(slash2, slash)
+
+                                vehButton.dataset.vehicles += `${id},`
+                              }
+
+                              tBody.innerHTML += `<td>${vehButton.outerHTML}</td>`;
+                            } else {
+                              tBody.innerHTML += "<td>None</td>"
+                            }`
+                            </td>
+                            <td>`
+                            if (data.starships.length){
+                              const starButton = document.createElement('a');
+                              starButton.href = '#show'
+                              starButton.id = 'starShow'
+                              starButton.innerHTML = 'Show';
+                              starButton.classList.add('btn', 'btn-dark')
+                              starButton.dataset.starships = '';
+
+                              for (let i = 0; i < data.starships.length; i++) {
+                                const url = data.starships[i]
+                                const slash = url.lastIndexOf("/");
+                                const slash2 = url.lastIndexOf("/", slash - 1) + 1;
+                                const id = url.slice(slash2, slash)
+
+                                starButton.dataset.starships += `${id},`
+                              }
+
+                              tBody.innerHTML += `<td>${starButton.outerHTML}</td>`;
+                            } else {
+                              tBody.innerHTML += "<td>None</td>"
+                            }`</td>
                             </tr>`;
+
+                            sForm.appendChild(tBody);
+                            tableM.appendChild(sForm);
+
+              const filmBtn = document.getElementById("filmShow")
+              const vehicleBtn = document.getElementById("vehShow")
+              const starshipBtn = document.getElementById("starShow")
+
+              filmBtn.addEventListener (
+                'click', () => {
+                  console.log(filmBtn.dataset.films)
+                }
+              )
+              
+              vehicleBtn.addEventListener (
+                'click', () => {
+                  console.log(vehicleBtn.dataset.vehicles)
+                }
+              )
+              
+              starshipBtn.addEventListener (
+                'click', () => {
+                  console.log(starshipBtn.dataset.starships)
+                }
+              )
       });
 
-    sForm.appendChild(tBody);
-    tableM.appendChild(sForm);
-  });
+    
+  }
+);
