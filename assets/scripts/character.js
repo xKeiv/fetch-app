@@ -17,7 +17,29 @@ const links = {
 
 console.log(url.search);
 
+const createButton = (data, id, name) => {
+  if (data.length){
+    const button = document.createElement('a');
+    button.href = '#show'
+    button.id = id
+    button.innerHTML = `Show ${name}`;
+    button.classList.add('btn', 'btn-dark')
+    button.dataset.ids = '';
 
+    for (let i = 0; i < data.length; i++) {
+      const url = data[i]
+      const slash = url.lastIndexOf("/");
+      const slash2 = url.lastIndexOf("/", slash - 1) + 1;
+      const id = url.slice(slash2, slash)
+
+      button.dataset.ids += `${id},`
+    }
+
+    return button.outerHTML
+  } else {
+    return "None"
+  }
+}
 
 searchParam.innerHTML = link.get("search");
 
@@ -62,74 +84,9 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
                             <td>${
                               data.species.length ? data.species.join() : "None"
                             }</td>
-                            `
-                            if (data.films.length){
-                              const filmButton = document.createElement('a');
-                              filmButton.href = '#show'
-                              filmButton.id = 'filmShow'
-                              filmButton.innerHTML = 'Show';
-                              filmButton.classList.add('btn', 'btn-dark')
-                              filmButton.dataset.films = '';
-
-                              for (let i = 0; i < data.films.length; i++) {
-                                const url = data.films[i]
-                                const slash = url.lastIndexOf("/");
-                                const slash2 = url.lastIndexOf("/", slash - 1) + 1;
-                                const id = url.slice(slash2, slash)
-
-                                filmButton.dataset.films += `${id},`
-                              }
-
-                              tBody.innerHTML += `<td>${filmButton.outerHTML}</td>`;
-                            } else {
-                              tBody.innerHTML += "<td>None</td>"
-                            }`
-                            
-                            <td>`
-                            if (data.vehicles.length){
-                              const vehButton = document.createElement('a');
-                              vehButton.href = '#show'
-                              vehButton.id = 'vehShow'
-                              vehButton.innerHTML = 'Show';
-                              vehButton.classList.add('btn', 'btn-dark')
-                              vehButton.dataset.vehicles = '';
-
-                              for (let i = 0; i < data.vehicles.length; i++) {
-                                const url = data.vehicles[i]
-                                const slash = url.lastIndexOf("/");
-                                const slash2 = url.lastIndexOf("/", slash - 1) + 1;
-                                const id = url.slice(slash2, slash)
-
-                                vehButton.dataset.vehicles += `${id},`
-                              }
-
-                              tBody.innerHTML += `<td>${vehButton.outerHTML}</td>`;
-                            } else {
-                              tBody.innerHTML += "<td>None</td>"
-                            }`
-                            </td>
-                            <td>`
-                            if (data.starships.length){
-                              const starButton = document.createElement('a');
-                              starButton.href = '#show'
-                              starButton.id = 'starShow'
-                              starButton.innerHTML = 'Show';
-                              starButton.classList.add('btn', 'btn-dark')
-                              starButton.dataset.starships = '';
-
-                              for (let i = 0; i < data.starships.length; i++) {
-                                const url = data.starships[i]
-                                const slash = url.lastIndexOf("/");
-                                const slash2 = url.lastIndexOf("/", slash - 1) + 1;
-                                const id = url.slice(slash2, slash)
-
-                                starButton.dataset.starships += `${id},`
-                              }
-
-                              tBody.innerHTML += `<td>${starButton.outerHTML}</td>`;
-                            } else {
-                              tBody.innerHTML += "<td>None</td>"
-                            }`</td>
+                            <td>${createButton(data.films, 'filmShow', 'films')}</td>
+                            <td>${createButton(data.vehicles, 'vehShow', 'vehicles')}</td>
+                            <td>${createButton(data.starships, 'starShow','starships')}</td>
                             </tr>`;
 
                             sForm.appendChild(tBody);
@@ -139,21 +96,26 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
               const vehicleBtn = document.getElementById("vehShow")
               const starshipBtn = document.getElementById("starShow")
 
+              const filmBtnData = filmBtn.dataset.ids.split(',').slice(0, -1)
+              const vehicleBtnData = vehicleBtn.dataset.ids.split(',').slice(0, -1)
+              const starshipBtnData = starshipBtn.dataset.ids.split(',').slice(0, -1)
+
+
               filmBtn.addEventListener (
                 'click', () => {
-                  console.log(filmBtn.dataset.films)
+                  console.log(filmBtnData)
                 }
               )
               
               vehicleBtn.addEventListener (
                 'click', () => {
-                  console.log(vehicleBtn.dataset.vehicles)
+                  console.log(vehicleBtnData)
                 }
               )
               
               starshipBtn.addEventListener (
                 'click', () => {
-                  console.log(starshipBtn.dataset.starships)
+                  console.log(starshipBtnData)
                 }
               )
       });
