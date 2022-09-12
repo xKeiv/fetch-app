@@ -41,6 +41,28 @@ const createButton = (data, id, name) => {
   }
 }
 
+
+// const meta = fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`);
+
+const showTextClick = (btn_show, data_show, random_show, link) => {
+  btn_show.addEventListener (
+    'click', () => {
+      console.log(data_show);
+      const meta = [];
+      for (let i = 0; i < data_show.length; i++) {
+        meta.push(fetch(`https://swapi.dev/api/${link}/${data_show[i]}/`))
+      }
+      Promise.all(meta).then((info) => {
+        btn_show.remove();
+        info.map(res => res.json().then(data => 
+        {
+          console.log(data)
+            random_show.innerHTML += `<div>${data.title}</div>`}));
+      })
+    }
+  )
+}
+
 searchParam.innerHTML = link.get("search");
 
 // fetch(`https://swapi.dev/api/people/?search=${link.get('search')}`)
@@ -92,27 +114,38 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
                             sForm.appendChild(tBody);
                             tableM.appendChild(sForm);
 
-              const filmBtn = document.getElementById("filmShow")
-              const vehicleBtn = document.getElementById("vehShow")
-              const starshipBtn = document.getElementById("starShow")
+              //Here are const that I'm using to do something, lol
+                  const filmBtn = document.getElementById("filmShow")
+                  const vehicleBtn = document.getElementById("vehShow")
+                  const starshipBtn = document.getElementById("starShow")
 
-              const filmBtnData = filmBtn.dataset.ids.split(',').slice(0, -1)
-              const vehicleBtnData = vehicleBtn.dataset.ids.split(',').slice(0, -1)
-              const starshipBtnData = starshipBtn.dataset.ids.split(',').slice(0, -1)
-              
-              const meta = fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
-              meta.then
+                  const random = filmBtn.closest('td');
+                  const random2 = vehicleBtn.closest('td');
+                  const random3 = starshipBtn.closest('td');
 
-              filmBtn.addEventListener (
-                'click', () => {
-                  console.log(filmBtnData);
-                  const metaFilm = [];
-                  for (let i = 0; i < filmBtnData.length; i++) {
-                    metaFilm.push(fetch(`https://swapi.dev/api/${links.films}/${filmBtnData[i]}/`))
-                  }
-                  //loop of filmBtnData, inside of it push() new fetch (like it is in line 103)
-                }
-              )
+                  const filmBtnData = filmBtn.dataset.ids.split(',').slice(0, -1)
+                  const vehicleBtnData = vehicleBtn.dataset.ids.split(',').slice(0, -1)
+                  const starshipBtnData = starshipBtn.dataset.ids.split(',').slice(0, -1)
+
+
+              showTextClick(filmBtn, filmBtnData, random, links.films);
+
+              // filmBtn.addEventListener (
+              //   'click', () => {
+              //     console.log(filmBtnData);
+              //     const metaFilm = [];
+              //     for (let i = 0; i < filmBtnData.length; i++) {
+              //       metaFilm.push(fetch(`https://swapi.dev/api/${links.films}/${filmBtnData[i]}/`))
+              //     }
+              //     Promise.all(metaFilm).then((info) => {
+              //       filmBtn.remove();
+              //       info.map(res => res.json().then(data => 
+              //       {
+              //         console.log(data)
+              //           random.innerHTML += data.title}));
+              //     })
+              //   }
+              // )
               
               vehicleBtn.addEventListener (
                 'click', () => {
@@ -121,6 +154,13 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
                   for (let i = 0; i < vehicleBtnData.length; i++) {
                     metaVeh.push(fetch(`https://swapi.dev/api/${links.vehicles}/${vehicleBtnData[i]}/`))
                   }
+                  Promise.all(metaVeh).then((info) => {
+                    vehicleBtn.remove();
+                    info.map(res => res.json().then(data => 
+                    {
+                      console.log(data)
+                        random2.innerHTML += data.name}));
+                  })
                 }
               )
               
@@ -131,6 +171,13 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
                   for (let i = 0; i < starshipBtnData.length; i++) {
                     metaStar.push(fetch(`https://swapi.dev/api/${links.starships}/${starshipBtnData[i]}/`))
                   }
+                  Promise.all(metaStar).then((info) => {
+                    starshipBtn.remove();
+                    info.map(res => res.json().then(data => 
+                    {
+                      console.log(data)
+                        random3.innerHTML += data.name}));
+                  })
                 }
               )
       });
