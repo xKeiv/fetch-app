@@ -44,7 +44,7 @@ const createButton = (data, id, name) => {
 
 // const meta = fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`);
 
-const showTextClick = (btn_show, data_show, random_show, link) => {
+const showTextClick = (btn_show, data_show, random_show, link, type) => {
   btn_show.addEventListener (
     'click', () => {
       console.log(data_show);
@@ -57,7 +57,7 @@ const showTextClick = (btn_show, data_show, random_show, link) => {
         info.map(res => res.json().then(data => 
         {
           console.log(data)
-            random_show.innerHTML += `<div>${data.title}</div>`}));
+            random_show.innerHTML += `<div>${data[type]}</div><br>`}));
       })
     }
   )
@@ -128,7 +128,7 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
                   const starshipBtnData = starshipBtn.dataset.ids.split(',').slice(0, -1)
 
 
-              showTextClick(filmBtn, filmBtnData, random, links.films);
+              showTextClick(filmBtn, filmBtnData, random, links.films,'title');
 
               // filmBtn.addEventListener (
               //   'click', () => {
@@ -147,39 +147,44 @@ fetch(`https://swapi.dev/api/${links.people}/${link.get("id")}/`)
               //   }
               // )
               
-              vehicleBtn.addEventListener (
-                'click', () => {
-                  console.log(vehicleBtnData);
-                  const metaVeh = [];
-                  for (let i = 0; i < vehicleBtnData.length; i++) {
-                    metaVeh.push(fetch(`https://swapi.dev/api/${links.vehicles}/${vehicleBtnData[i]}/`))
-                  }
-                  Promise.all(metaVeh).then((info) => {
-                    vehicleBtn.remove();
-                    info.map(res => res.json().then(data => 
-                    {
-                      console.log(data)
-                        random2.innerHTML += data.name}));
-                  })
-                }
-              )
+              showTextClick(vehicleBtn, vehicleBtnData, random2, links.vehicles,'name');
+
+              // vehicleBtn.addEventListener (
+              //   'click', () => {
+              //     console.log(vehicleBtnData);
+              //     const metaVeh = [];
+              //     for (let i = 0; i < vehicleBtnData.length; i++) {
+              //       metaVeh.push(fetch(`https://swapi.dev/api/${links.vehicles}/${vehicleBtnData[i]}/`))
+              //     }
+              //     Promise.all(metaVeh).then((info) => {
+              //       vehicleBtn.remove();
+              //       info.map(res => res.json().then(data => 
+              //       {
+              //         console.log(data)
+              //           random2.innerHTML += data.name}));
+              //     })
+              //   }
+              // )
               
-              starshipBtn.addEventListener (
-                'click', () => {
-                  console.log(starshipBtnData);
-                  const metaStar = [];
-                  for (let i = 0; i < starshipBtnData.length; i++) {
-                    metaStar.push(fetch(`https://swapi.dev/api/${links.starships}/${starshipBtnData[i]}/`))
-                  }
-                  Promise.all(metaStar).then((info) => {
-                    starshipBtn.remove();
-                    info.map(res => res.json().then(data => 
-                    {
-                      console.log(data)
-                        random3.innerHTML += data.name}));
-                  })
-                }
-              )
+
+              showTextClick(starshipBtn, starshipBtnData, random3, links.starships,'name');
+
+              // starshipBtn.addEventListener (
+              //   'click', () => {
+              //     console.log(starshipBtnData);
+              //     const metaStar = [];
+              //     for (let i = 0; i < starshipBtnData.length; i++) {
+              //       metaStar.push(fetch(`https://swapi.dev/api/${links.starships}/${starshipBtnData[i]}/`))
+              //     }
+              //     Promise.all(metaStar).then((info) => {
+              //       starshipBtn.remove();
+              //       info.map(res => res.json().then(data => 
+              //       {
+              //         console.log(data)
+              //           random3.innerHTML += data.name}));
+              //     })
+              //   }
+              // )
       });
 
     
